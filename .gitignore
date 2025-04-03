@@ -1,0 +1,19 @@
+# Android Studio
+.idea/
+build/
+*.apk
+*.keystore
+app/build/
+local.properties
+
+# Python
+__pycache__/
+*.pyc
+venv/
+env/
+*.env
+*.log
+
+# General
+.DS_Store
+*.tmp
