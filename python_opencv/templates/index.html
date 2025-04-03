@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Circular Video Capture {{ namestore }}</title>
+      <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+    
+            body, html {
+                width: 100%;
+                height: 100%;
+                overflow: hidden; 
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: black; 
+            }
+    
+            #video-frame {
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover; 
+            }
+        </style>
+</head>
+
+<body>
+      <div>
+            <img src="{{ url_for('video_feed', username=namestore) }}" id="video-frame" alt="Circular Video"
+                  onerror="handleStreamError()">
+      </div>
+
+      <script>
+
+            var name = "{{namestore}}"
+            console.log(name)
+
+
+            async function checkStopSignal() {
+                  try {
+                        const response = await fetch(`/video_feed/${name}`);
+                        const reader = response.body.getReader();
+                        const decoder = new TextDecoder("utf-8");
+
+                        let receivedText = "";
+
+                        while (true) {
+                              const { value, done } = await reader.read();
+                              if (done) break;
+
+                              let chunk = decoder.decode(value, { stream: true });
+
+                              console.log("Received Chunk:", chunk);
+
+                              if (!chunk.trim()) {
+                                    console.log("❌ Received an empty chunk, Redirecting...");
+                                    window.history.back(); 
+                                    break;
+                              }
+
+                              if (chunk.includes("STOP")) {
+                                    console.log("✅ STOP signal detected, Redirecting...");
+                                    window.location.href = "/main_page";
+                                    break;
+                              }
+                              else if (chunk.includes("<!doctype html>")) {
+                                    console.log("❌ HTML error detected, Redirecting...");
+                                    window.history.back(); 
+                                    break;
+                              }
+                        }
+                  } catch (error) {
+                        console.error("❌ Error fetching stream:", error);
+                        window.history.back();
+                  }
+            }
+
+            checkStopSignal();
+
+
+
+            function handleStreamError() {
+                  console.log("❌ Stream failed to load. Redirecting...");
+                  window.location.href = "/main_page";
+            }
+
+
+            function getPageDimensions() {
+                  const width = window.innerWidth;
+                  const height = window.innerHeight;
+
+                  fetch('/set_dimensions', {
+                        method: 'POST',
+                        headers: {
+                              'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ width, height })
+                  })
+                        .then(response => response.json())
+                        .then(data => console.log(data))
+                        .catch(error => console.error('Error:', error));
+
+                  return { width, height };
+            }
+
+            
+            window.onload = function () {
+                  const dimensions = getPageDimensions();
+            };
+      </script>
+</body>
+
+</html>

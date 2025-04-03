@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" height="24px" width="24px" type="image/x-icon" href="images/Election-commission-L.png">
+      <title>Sign In Page</title>
+      <style>
+            * {
+                  box-sizing: border-box;
+                  margin: 0;
+                  padding: 0;
+                  font-family: Arial, sans-serif;
+            }
+
+            .container {
+                  display: flex;
+                  height: 100vh;
+            }
+
+            .left,
+            .right {
+                  flex: 1;
+                  position: relative;
+            }
+
+            .left {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  background-color: #f7f7f7;
+                  padding: 40px;
+            }
+
+            .logo {
+                  position: absolute;
+                  top: 20px;
+                  left: 20px;
+            }
+
+            .logo img {
+                  max-width: 100%;
+                  
+            }
+
+            .signin-content {
+                  text-align: center;
+            }
+
+            .signin-content h2 {
+                  color: #333;
+                  font-size: 24px;
+                  margin-bottom: 10px;
+            }
+
+            .signin-content p {
+                  color: #333;
+                  font-size: 18px;
+                  margin-bottom: 30px;
+            }
+
+            .form {
+                  display: flex;
+                  flex-direction: column;
+                  width: 100%;
+            }
+
+            .form input {
+                  padding: 10px;
+                  margin-bottom: 20px;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  font-size: 16px;
+            }
+
+            .form button {
+                  padding: 10px;
+                  background-color: #0073e6;
+                  color: white;
+                  border: none;
+                  border-radius: 5px;
+                  font-size: 16px;
+                  cursor: pointer;
+            }
+
+            .form button:hover {
+                  background-color: #005bb5;
+            }
+
+            .form a {
+                  color: #0073e6;
+                  text-align: center;
+                  margin-top: 10px;
+            }
+
+            .right {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  background: linear-gradient(to bottom right, orange, white, green);
+                  color: white;
+                  position: relative;
+                  padding: 20px;
+            }
+
+            .background-text {
+                  text-align: center;
+            }
+
+            .background-text span {
+                  font-size: 36px;
+                  font-weight: bold;
+            }
+      </style>
+</head>
+
+<body>
+      <div class="container">
+            <div class="left">
+                  <div class="logo">
+                        <img src="{{ url_for('static', filename='images/eci-logo.svg') }}" alt="Logo">
+                  </div>
+                  <div class="signin-content">
+                        <h2>Welcome </h2>
+                        <h2>Election Commission Of India</h2>
+                        <p>For Detecting Faces</p>
+                        <div class="form">
+                              <input type="text" id="user_name" placeholder="Enter UserName" required>
+                              <button type="submit" id="btn_opncv">Open Camera</button>
+                              <span style="margin-top: 12px;">For Face Authentication?<a
+                                          href="/faceRecog">click</a></span>
+                        </div>
+                  </div>
+            </div>
+            <div class="right">
+                  <div class="background-text">
+                        <h1><span id="element"></span></h1>
+                  </div>
+            </div>
+      </div>
+</body>
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+<script>
+      var typed = new Typed('#element', {
+            strings: [`<span style="color:black;">Every Vote Counts: Exercise Your Right with the <span style="color:orange;">Election</span><span style="color:green;"> Commission</span><span style="color:white;"> of </span><span style="color:blue;">India</span>!</span>`],
+            typeSpeed: 50,
+            loop: true
+      })
+      document.getElementById("btn_opncv").addEventListener("click", () => {
+            var Name = document.getElementById("user_name").value
+            console.log(Name)
+            sessionStorage.setItem("clearInput", "true");
+            window.location.href = `/${Name}`
+      })
+
+      window.addEventListener("pageshow", function () {
+            if (sessionStorage.getItem("clearInput") === "true") {
+                  let inputField = document.getElementById("user_name");
+                  if (inputField) {
+                        inputField.value = "";  
+                  }
+                  sessionStorage.removeItem("clearInput");  
+            }
+      });
+</script>
+
+</html>

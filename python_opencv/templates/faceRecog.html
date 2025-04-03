@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Circular Video Capture for Recog</title>
+      <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+    
+            body, html {
+                width: 100%;
+                height: 100%;
+                overflow: hidden; 
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: black; 
+            }
+    
+            #video-frame {
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover; 
+            }
+        </style>
+</head>
+
+<body>
+      <div>
+            <img src="{{ url_for('video_feed_forRecog') }}" id="video-frame" alt="Circular Video">
+      </div>
+
+      <script>
+
+
+            function getPageDimensions() {
+                  const width = window.innerWidth;
+                  const height = window.innerHeight;
+
+                  
+                  fetch('/set_dimensions', {
+                        method: 'POST',
+                        headers: {
+                              'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ width, height })
+                  })
+                        .then(response => response.json())
+                        .then(data => console.log(data))
+                        .catch(error => console.error('Error:', error));
+
+                  return { width, height };
+            }
+
+            
+            window.onload = function () {
+                  const dimensions = getPageDimensions();
+            };
+      </script>
+</body>
+
+</html>
