@@ -1,0 +1,88 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <!-- OpenCV Title Outside the Container -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open-CV"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center"
+        android:paddingBottom="20dp"/>
+
+    <!-- Main Container with Border Radius -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/edittext_border"
+        android:padding="20dp"
+        android:gravity="center"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="For Face-Detection"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"/>
+
+        <EditText
+            android:id="@+id/username_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Enter Your Name"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:background="@android:color/white"/>
+
+        <Button
+            android:id="@+id/camera_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Open Camera"
+            android:textSize="16sp"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_green"
+            android:layout_marginTop="15dp"/>
+    </LinearLayout>
+
+    <!-- Align "For Face Auth?" and "Click" in One Row -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="For Face Auth?"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:paddingRight="5dp"/>
+
+        <TextView
+            android:id="@+id/camera_Face_Aut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_blue_dark"/>
+    </LinearLayout>
+
+</LinearLayout>
