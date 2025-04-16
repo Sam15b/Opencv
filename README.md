@@ -54,7 +54,7 @@ This is the heart of the recognition system – detects and recognizes users via
 ## 🧠 How It Works
 
 - Facial data from Android or webcam is processed using OpenCV  
-- Encodings are stored in `trained_faces.pkl` using `pickle`  
+- Encodings are stored in `faces.pkl` using `pickle`  
 - Flask app compares real-time input with stored encodings to identify users  
 
 ---
@@ -79,9 +79,9 @@ python test.py
 
 📲 For Android App
 
-Open opencv_camera in Android Studio
+Open ```opencv_camera``` in Android Studio
 
-Connect your device or emulator
+Connect your device Not emulator
 
 Run the app and allow necessary camera permissions
 
@@ -92,3 +92,18 @@ User opens the Android app or web → captures face
 Face encoding is sent to Flask backend and saved
 
 User is later recognized via webcam on the web and Android
+
+---
+
+📽️ Demo Video
+
+
+🙌 Acknowledgements
+
+Thanks to:
+
+- OpenCV Community
+- Flask Docs
+- Scikit-learn for KNN
+- Pythonistas everywhere
+
